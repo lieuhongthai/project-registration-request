@@ -4,13 +4,31 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+// ** Emotion Imports
+import { CacheProvider } from '@emotion/react';
+import type { EmotionCache } from '@emotion/cache';
+
+// ** Utils Imports
+import { createEmotionCache } from 'src/@core/utils/create-emotion-cache';
+
+// ** Helmet Imports
+import { HelmetProvider } from 'react-helmet-async';
+
+// ** Cookie Imports
+import { CookiesProvider } from 'react-cookie';
+
+const emotionCache: EmotionCache = createEmotionCache();
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <HelmetProvider>
+      <CookiesProvider>
+        <CacheProvider value={emotionCache}>
+          <App />
+        </CacheProvider>
+      </CookiesProvider>
+    </HelmetProvider>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
