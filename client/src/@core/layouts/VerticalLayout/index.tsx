@@ -1,5 +1,3 @@
-'use client';
-
 // ** React Imports
 import { useState } from 'react';
 
@@ -69,6 +67,7 @@ const VerticalLayout = (props: LayoutProps) => {
 
   // ** Toggle Functions
   const toggleNavVisibility = () => setNavVisible(!navVisible);
+
   return (
     <>
       <VerticalLayoutWrapper className='layout-wrapper'>

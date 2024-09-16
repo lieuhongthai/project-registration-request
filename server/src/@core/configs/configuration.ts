@@ -33,6 +33,10 @@ export default () => ({
     userDn: process.env.LDAP_BIND_DN || 'DC=geo,DC=net',
     userPassword: process.env.PASSWORD_EXCEPTION,
   },
+
+  // ** Seeder Database
+
+  isSeeder: process.env.SEEDER !== 'false',
 });
 
 export type TConfigService = {
@@ -54,4 +58,5 @@ export type TConfigService = {
     userDn: string;
     userPassword: string;
   };
+  isSeeder: boolean;
 };
