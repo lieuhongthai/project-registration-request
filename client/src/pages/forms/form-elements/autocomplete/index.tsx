@@ -17,7 +17,6 @@ import AutocompleteSmallSize from 'src/views/forms/form-elements/autocomplete/Au
 import AutocompleteCheckboxes from 'src/views/forms/form-elements/autocomplete/AutocompleteCheckboxes';
 import AutocompleteCustomInput from 'src/views/forms/form-elements/autocomplete/AutocompleteCustomInput';
 import AutocompleteCustomFilter from 'src/views/forms/form-elements/autocomplete/AutocompleteCustomFilter';
-import AutocompleteMultipleValues from 'src/views/forms/form-elements/autocomplete/AutocompleteMultipleValues';
 import AutocompleteDisabledOptions from 'src/views/forms/form-elements/autocomplete/AutocompleteDisabledOptions';
 import AutocompleteAsynchronousRequest from 'src/views/forms/form-elements/autocomplete/AutocompleteAsynchronousRequest';
 import AutocompleteControlledUncontrolled from 'src/views/forms/form-elements/autocomplete/AutocompleteControlledUncontrolled';
@@ -161,7 +160,6 @@ const Autocompletes = () => {
           <Typography>
             Use <code>multiple</code> prop to select multiple options from the list.
           </Typography>
-          <AutocompleteMultipleValues />
         </CardSnippet>
       </Grid>
       <Grid item xs={12} md={6}>

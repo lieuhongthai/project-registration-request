@@ -2,18 +2,18 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { t } from 'i18next';
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = '';
 axios.defaults.timeout = 10000;
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 
-// axios.interceptors.request.use(
-//   config => {
-//     return config;
-//   },
-//   error => {
-//     return Promise.reject(error);
-//   },
-// );
+axios.interceptors.request.use(
+  config => {
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  },
+);
 
 axios.interceptors.response.use(
   response => {

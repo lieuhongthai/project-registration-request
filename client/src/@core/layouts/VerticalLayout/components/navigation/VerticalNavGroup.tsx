@@ -1,5 +1,3 @@
-// eslint-disable-next-line react-hooks/exhaustive-deps
-
 // ** React Imports
 import { useEffect, Fragment } from 'react';
 
@@ -156,7 +154,6 @@ const VerticalNavGroup = (props: Props) => {
     if (navCollapsed && !navHover) {
       setGroupActive([]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentURL, nextURL]);
 
   useEffect(() => {
@@ -167,15 +164,12 @@ const VerticalNavGroup = (props: Props) => {
     if ((navCollapsed && navHover) || (groupActive.length === 0 && !navCollapsed)) {
       setGroupActive([...currentActiveGroup]);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navCollapsed, navHover]);
 
   useEffect(() => {
     if (groupActive.length === 0 && !navCollapsed) {
       setGroupActive([]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navHover]);
 
   const icon = parent && !item.icon ? themeConfig.navSubItemIcon : item.icon;
