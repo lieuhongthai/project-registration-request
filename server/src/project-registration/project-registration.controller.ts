@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ProjectRegistrationService } from './project-registration.service';
 import { CreateProjectRegistrationDto } from './dto/create-project-registration.dto';
 import { UpdateProjectRegistrationDto } from './dto/update-project-registration.dto';
+import { FilterRequestDto } from './dto/filter-request.dto';
 
 @Controller('project-registration')
 export class ProjectRegistrationController {
@@ -13,8 +14,8 @@ export class ProjectRegistrationController {
   }
 
   @Get()
-  findAll() {
-    return this.projectRegistrationService.findAll();
+  findAll(@Query() query: FilterRequestDto) {
+    return this.projectRegistrationService.findAll(query);
   }
 
   @Get(':id')
