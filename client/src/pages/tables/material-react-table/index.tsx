@@ -5,7 +5,6 @@ import { type MRT_ColumnDef } from 'material-react-table';
 import { useMemo } from 'react';
 import PageHeader from 'src/@core/components/page-header';
 import MRTable from 'src/@core/components/table';
-import { rows } from 'src/@fake-db/table/static-data';
 
 type RowType = {
   id: number;
@@ -38,7 +37,7 @@ const MaterialReactTables = () => {
       <PageHeader title={<Typography variant='h5'>MUI Tables</Typography>} />
 
       <Grid size={12}>
-        <MRTable columns={columns} data={rows} />
+        <MRTable columns={columns} data={[]} />
       </Grid>
     </Grid>
   );

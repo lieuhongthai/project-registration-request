@@ -30,6 +30,9 @@ import { Helmet } from 'react-helmet-async';
 import themeConfig from './configs/themeConfig';
 import { initialSettings } from './configs/initialSettings';
 
+// ** Import axios config
+import './configs/axiosConfig';
+
 function App() {
   return (
     <div className='App'>

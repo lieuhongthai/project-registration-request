@@ -1,5 +1,10 @@
 {
   "Project Registration": "Project Registration",
+  "IDS_LOGIN_LABEL": "Login",
+  "IDS_LOGIN_TITLE": "Project Registration System",
+  "IDS_LOGIN_NAME": "Username",
+  "IDS_LOGIN_PASSWORD": "Password",
+  "IDS_LOGIN_BUTTON": "Login",
 
   "MESSAGES": {
     "IDM_INTERNAL_SERVER_ERROR": "A server error has occurred. Please try again later.",

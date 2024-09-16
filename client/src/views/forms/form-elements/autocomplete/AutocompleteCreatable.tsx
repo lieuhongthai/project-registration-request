@@ -5,9 +5,6 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
-// ** Data
-import { top100Films } from 'src/@fake-db/autocomplete';
-
 interface FilmOptionType {
   year?: number;
   title: string;
@@ -19,6 +16,7 @@ const filter = createFilterOptions<FilmOptionType>();
 const AutocompleteCreatable = () => {
   // ** State
   const [value, setValue] = useState<FilmOptionType | null>(null);
+  const top100Films: any[] = [];
 
   return (
     <Autocomplete
@@ -45,11 +43,11 @@ const AutocompleteCreatable = () => {
       onChange={(event, newValue) => {
         if (typeof newValue === 'string') {
           setValue({
-            title: newValue
+            title: newValue,
           });
         } else if (newValue && (newValue as any).inputValue) {
           setValue({
-            title: (newValue as any).inputValue
+            title: (newValue as any).inputValue,
           });
         } else {
           setValue(newValue);
@@ -62,7 +60,7 @@ const AutocompleteCreatable = () => {
         if (inputValue !== '' && !isExisting) {
           filtered.push({
             inputValue,
-            title: `Add "${inputValue}"`
+            title: `Add "${inputValue}"`,
           });
         }
 

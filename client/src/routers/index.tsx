@@ -20,7 +20,6 @@ import Swiper from 'src/pages/components/swiper';
 import Tabs from 'src/pages/components/tabs';
 import Timelines from 'src/pages/components/timeline';
 import ReactHotToasts from 'src/pages/components/toast';
-import Misc from 'src/pages/components/more';
 import Error404 from 'src/pages/404';
 import TextFields from 'src/pages/forms/form-elements/text-field';
 import Selects from 'src/pages/forms/form-elements/select';
@@ -190,10 +189,6 @@ export const routers = createBrowserRouter([
           {
             path: 'toast',
             element: <ReactHotToasts />,
-          },
-          {
-            path: 'more',
-            element: <Misc />,
           },
         ],
       },

@@ -7,7 +7,6 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 // ** Data
-import { top100Films } from 'src/@fake-db/autocomplete';
 
 interface FilmOptionType {
   year: number;
@@ -21,6 +20,7 @@ const AutocompleteControlledUncontrolled = () => {
   const handleChange = (event: SyntheticEvent, newValue: FilmOptionType | null) => {
     setValue(newValue);
   };
+  const top100Films: any[] = [];
 
   return (
     <Box className='demo-space-x' sx={{ display: 'flex', flexWrap: 'wrap' }}>

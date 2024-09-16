@@ -5,9 +5,10 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 // ** Data
-import { top100Films } from 'src/@fake-db/autocomplete';
 
 const AutocompleteMultipleValues = () => {
+  const top100Films: any[] = [];
+
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
       <Autocomplete

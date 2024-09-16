@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 // ** Data
-import { countries } from 'src/@fake-db/autocomplete';
 
 interface CountryType {
   code: string;
@@ -13,6 +12,8 @@ interface CountryType {
 }
 
 const AutocompleteCountry = () => {
+  const countries: any[] = [];
+
   return (
     <Autocomplete
       autoHighlight
@@ -38,7 +39,7 @@ const AutocompleteCountry = () => {
           label='Choose a country'
           inputProps={{
             ...params.inputProps,
-            autoComplete: 'new-password'
+            autoComplete: 'new-password',
           }}
         />
       )}

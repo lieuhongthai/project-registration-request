@@ -22,6 +22,7 @@ const componentMui = (settings: ThemeSettings): ComponentsMui => {
   const { skin, mode } = settings;
 
   const getColor = mode === 'light' ? darken : lighten;
+
   return {
     // **
     // MuiGrid: {},

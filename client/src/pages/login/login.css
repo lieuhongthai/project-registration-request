@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.background-radial-gradient {
+  background-color: hsl(218, 41%, 35%);
+  background-image: linear-gradient(to right, #d7d2cc 0%, #304352 100%);
+}
+
+#radius-shape-1 {
+  height: 270px;
+  width: 270px;
+  top: -6.5rem;
+  left: -7.5em;
+  background: radial-gradient(#ffefad, #ffca00);
+  overflow: hidden;
+  position: absolute;
+  border-radius: 38% 65% 63% 37% / 50% 33% 67% 35%;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+#radius-shape-3 {
+  height: 310px;
+  width: 310px;
+  top: -6rem;
+  right: -7rem;
+  transform: translate(40%, -40%);
+  background: radial-gradient(#ff616c, #d2000f);
+  overflow: hidden;
+  position: absolute;
+  border-radius: 38% 72% 63% 37% / 70% 40% 67% 30%;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+#radius-shape-2 {
+  border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+  bottom: -6.7rem;
+  right: -6.6rem;
+  transform: translate(30%, 40%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(#165eda, #0a2149);
+  overflow: hidden;
+  position: absolute;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.bg-glass {
+  background-color: hsla(0, 0%, 100%, 0.9) !important;
+  backdrop-filter: saturate(200%) blur(25px);
+}
