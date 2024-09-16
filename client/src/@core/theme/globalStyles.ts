@@ -1,18 +1,18 @@
 // ** MUI Imports
-import { Theme } from '@mui/material/styles'
-import { ThemeSettings } from '../types/theme-component/type'
+import { Theme } from '@mui/material/styles';
+import { ThemeSettings } from '../types/theme-component/type';
 
 const GlobalStyling = (theme: Theme, settings: ThemeSettings) => {
   // ** Hook & Var
-  const { mode } = settings
+  const { mode } = settings;
 
   const perfectScrollbarThumbBgColor = () => {
     if (mode === 'light') {
-      return '#BFBFD5 !important'
+      return '#BFBFD5 !important';
     } else {
-      return '#57596C !important'
+      return '#57596C !important';
     }
-  }
+  };
 
   return {
     '.demo-space-x > *': {
@@ -20,39 +20,39 @@ const GlobalStyling = (theme: Theme, settings: ThemeSettings) => {
       marginRight: '1rem !important',
       'body[dir="rtl"] &': {
         marginRight: '0 !important',
-        marginLeft: '1rem !important'
-      }
+        marginLeft: '1rem !important',
+      },
     },
     '.demo-space-y > *:not(:last-of-type)': {
-      marginBottom: '1rem'
+      marginBottom: '1rem',
     },
     '.MuiGrid-container.match-height .MuiCard-root': {
-      height: '100%'
+      height: '100%',
     },
     '.ps__rail-y': {
       zIndex: 1,
       right: '0 !important',
       left: 'auto !important',
       '&:hover, &:focus, &.ps--clicking': {
-        backgroundColor: theme.palette.mode === 'light' ? '#F3F3F8 !important' : '#393B51 !important'
+        backgroundColor: theme.palette.mode === 'light' ? '#F3F3F8 !important' : '#393B51 !important',
       },
       '& .ps__thumb-y': {
         right: '3px !important',
         left: 'auto !important',
-        backgroundColor: theme.palette.mode === 'light' ? '#BFBFD5 !important' : '#57596C !important'
+        backgroundColor: theme.palette.mode === 'light' ? '#BFBFD5 !important' : '#57596C !important',
       },
       '.layout-vertical-nav &': {
         '& .ps__thumb-y': {
           width: 4,
-          backgroundColor: perfectScrollbarThumbBgColor()
+          backgroundColor: perfectScrollbarThumbBgColor(),
         },
         '&:hover, &:focus, &.ps--clicking': {
           backgroundColor: 'transparent !important',
           '& .ps__thumb-y': {
-            width: 6
-          }
-        }
-      }
+            width: 6,
+          },
+        },
+      },
     },
 
     '#nprogress': {
@@ -64,10 +64,10 @@ const GlobalStyling = (theme: Theme, settings: ThemeSettings) => {
         width: '100%',
         zIndex: 2000,
         position: 'fixed',
-        backgroundColor: theme.palette.primary.main
-      }
-    }
-  }
-}
+        backgroundColor: theme.palette.primary.main,
+      },
+    },
+  };
+};
 
-export default GlobalStyling
+export default GlobalStyling;

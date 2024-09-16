@@ -1,13 +1,13 @@
 // ** Third Party Import
 
 interface Props {
-  text: string
+  text: string;
 }
 
 const Translations = ({ text }: Props) => {
   // ** Hook
 
-  return <>{`${text}`}</>
-}
+  return <>{`${text}`}</>;
+};
 
-export default Translations
+export default Translations;

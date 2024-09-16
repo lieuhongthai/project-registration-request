@@ -1,6 +1,12 @@
 {
   "Project Registration": "プロジェクト登録",
 
+  "IDS_LOGIN_LABEL": "ログイン",
+  "IDS_LOGIN_TITLE": "プロジェクト登録システム",
+  "IDS_LOGIN_NAME": "ユーザーID",
+  "IDS_LOGIN_PASSWORD": "パスワード",
+  "IDS_LOGIN_BUTTON": "ログイン",
+
   "MESSAGES": {
     "IDM_INTERNAL_SERVER_ERROR": "サーバーエラーが発生しました。しばらく待ってからもう一度やり直してください。",
     "IDM_TIMEOUT_ERROR": "タイムアウトが発生しました。しばらく待ってからもう一度やり直してください。",

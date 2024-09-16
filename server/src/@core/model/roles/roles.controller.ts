@@ -4,7 +4,6 @@ import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { Roles } from 'src/@core/decorators/roles.decorator';
 
-@Roles(['User'])
 @Controller('v1/roles')
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}

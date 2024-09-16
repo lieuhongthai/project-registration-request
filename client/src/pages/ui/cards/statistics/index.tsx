@@ -2,7 +2,6 @@
 import Grid from '@mui/material/Grid';
 
 // ** Type Import
-import { CardStatsType } from 'src/@fake-db/types';
 
 // ** Demo Components Imports
 import CardStatisticsSales from 'src/views/ui/cards/statistics/CardStatisticsSales';
@@ -22,7 +21,7 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts';
 import { useLoaderData } from 'react-router-dom';
 
 const CardStatistics = () => {
-  const { apiData } = useLoaderData() as { apiData: CardStatsType };
+  const { apiData } = useLoaderData() as { apiData: any };
 
   return (
     <ApexChartWrapper>

@@ -2,9 +2,6 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
-// ** Data
-import { top100Films } from 'src/@fake-db/autocomplete';
-
 interface FilmOptionType {
   year: number;
   title: string;
@@ -12,10 +9,12 @@ interface FilmOptionType {
 
 const filterOptions = createFilterOptions({
   matchFrom: 'start',
-  stringify: (option: FilmOptionType) => option.title
+  stringify: (option: FilmOptionType) => option.title,
 });
 
 const AutocompleteCustomFilter = () => {
+  const top100Films: any[] = [];
+
   return (
     <Autocomplete
       options={top100Films}

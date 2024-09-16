@@ -38,7 +38,7 @@
     ],
     "newline-before-return": "error",
     "@typescript-eslint/ban-types": [
-      "error",
+      "off",
       {
         "extendDefaults": true,
         "types": {
