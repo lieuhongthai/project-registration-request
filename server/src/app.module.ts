@@ -39,7 +39,7 @@ import { PermissionsModule } from 'src/@core/model/permissions/permissions.modul
 import { SlackChannelModule } from './slack-channel/slack-channel.module';
 import { RolesGuard } from 'src/@core/guard/role.guard';
 import { StartUpService } from './startUp.service';
-
+import { ProjectRegistrationModule } from './project-registration/project-registration.module';
 @Module({
   imports: [
     // ** NextJs Config
@@ -79,6 +79,8 @@ import { StartUpService } from './startUp.service';
 
     // ** Modules
     SlackChannelModule,
+
+    ProjectRegistrationModule,
   ],
   controllers: [AppController],
   providers: [
