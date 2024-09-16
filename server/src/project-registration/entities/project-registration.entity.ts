@@ -1,4 +1,14 @@
-import { AutoIncrement, BelongsTo, Column, DataType, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import {
+  AutoIncrement,
+  BelongsTo,
+  Column,
+  CreatedAt,
+  DataType,
+  Model,
+  PrimaryKey,
+  Table,
+  UpdatedAt,
+} from 'sequelize-typescript';
 import { Users } from 'src/@core/model/users/user.model';
 
 @Table
@@ -24,7 +34,7 @@ export class ProjectRegistration extends Model {
   contactInformation: string;
 
   @Column({ field: 'implementation_date' })
-  implementationDate: string;
+  implementationDate: Date;
 
   @Column
   status: string;
@@ -32,11 +42,13 @@ export class ProjectRegistration extends Model {
   @Column({ field: 'is_draft' })
   isDraft: string;
 
+  @CreatedAt
   @Column({ field: 'created_at' })
-  createdAt: string;
+  createdAt: Date;
 
+  @UpdatedAt
   @Column({ field: 'updated_at' })
-  updatedAt: string;
+  updatedAt: Date;
 
   @BelongsTo(() => Users, 'user_id')
   user: Users;

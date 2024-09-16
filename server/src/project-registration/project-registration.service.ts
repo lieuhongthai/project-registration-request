@@ -1,28 +1,42 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { CreateProjectRegistrationDto } from './dto/create-project-registration.dto';
 import { UpdateProjectRegistrationDto } from './dto/update-project-registration.dto';
 import { ProjectRegistration } from './entities/project-registration.entity';
+import { FilterRequest } from './dto/filter-request.dto';
 
 @Injectable()
 export class ProjectRegistrationService {
-  create(createProjectRegistrationDto: CreateProjectRegistrationDto) {
-    const created = ProjectRegistration.create({ ...createProjectRegistrationDto });
-    return created;
+  @InjectModel(ProjectRegistration)
+  private projectModel: typeof ProjectRegistration;
+
+  async create(createProjectRegistrationDto: CreateProjectRegistrationDto): Promise<ProjectRegistration> {
+    return await ProjectRegistration.create({ ...createProjectRegistrationDto });
   }
 
-  findAll() {
-    return `This action returns all projectRegistration`;
+  async findAll(filter: FilterRequest): Promise<ProjectRegistration[]> {
+    return await this.projectModel.findAll({
+      where: {
+        department: filter?.department,
+        purpose: filter?.purpose,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} projectRegistration`;
+  async findOne(id: number): Promise<ProjectRegistration> {
+    return await this.projectModel.findByPk(id);
   }
 
-  update(id: number, updateProjectRegistrationDto: UpdateProjectRegistrationDto) {
-    return `This action updates a #${id} projectRegistration`;
+  async update(id: number, updateProjectRegistrationDto: UpdateProjectRegistrationDto): Promise<ProjectRegistration> {
+    const project = await this.findOne(id);
+    project.set({
+      ...updateProjectRegistrationDto,
+    });
+    return await project.save();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} projectRegistration`;
+  async remove(id: number): Promise<void> {
+    const project = await this.findOne(id);
+    project.destroy();
   }
 }
