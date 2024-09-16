@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateProjectRegistrationDto } from './dto/create-project-registration.dto';
 import { UpdateProjectRegistrationDto } from './dto/update-project-registration.dto';
 import { ProjectRegistration } from './entities/project-registration.entity';
-import { FilterRequest } from './dto/filter-request.dto';
+import { FilterRequestDto } from './dto/filter-request.dto';
 
 @Injectable()
 export class ProjectRegistrationService {
@@ -14,7 +14,7 @@ export class ProjectRegistrationService {
     return await ProjectRegistration.create({ ...createProjectRegistrationDto });
   }
 
-  async findAll(filter: FilterRequest): Promise<ProjectRegistration[]> {
+  async findAll(filter: FilterRequestDto): Promise<ProjectRegistration[]> {
     return await this.projectModel.findAll({
       where: {
         department: filter?.department,
