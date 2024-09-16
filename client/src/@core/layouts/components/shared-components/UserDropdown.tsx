@@ -17,6 +17,7 @@ import Typography from '@mui/material/Typography';
 // ** Icon Imports
 import Icon from 'src/@core/components/icon';
 import themeConfig from 'src/configs/themeConfig';
+import { useAuth } from 'src/hooks/useAuth';
 
 // ** Type Imports
 
@@ -35,6 +36,7 @@ const UserDropdown = () => {
 
   // ** Hooks
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   // ** Vars
   const { direction } = themeConfig;
@@ -119,7 +121,7 @@ const UserDropdown = () => {
                 flexDirection: 'column',
               }}
             >
-              <Typography sx={{ fontWeight: 600 }}>John Doe</Typography>
+              <Typography sx={{ fontWeight: 600 }}>{user?.email}</Typography>
               <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
                 Admin
               </Typography>

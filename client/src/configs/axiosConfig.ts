@@ -40,6 +40,7 @@ axios.interceptors.response.use(
           break;
         default:
           toast.error(t('IDM_INTERNAL_SERVER_ERROR'));
+          break;
       }
     } else if (error.request) {
       console.error('Error request:', error.request);

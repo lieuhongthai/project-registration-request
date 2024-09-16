@@ -35,10 +35,10 @@ import Icon from 'src/@core/components/icon';
 // ** Css Imports
 import './login.css';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 import AuthApiService from 'src/api/auth';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { UserDataType } from 'src/api/auth/type';
+import { Navigate, useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom';
+import { TUserAuth, UserDataType } from 'src/api/auth/type';
+import { useAuth } from 'src/hooks/useAuth';
 
 const schema = yup.object().shape({
   username: yup.string().required(),
@@ -75,10 +75,11 @@ const defaultProvider: AuthValuesType = {
 const LoginPage = () => {
   // ** State
   const [isShowPassword, setShowPassword] = useState<boolean>(false);
-  const [user, setUser] = useState<UserDataType | null>(defaultProvider.user);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   // ** Hooks
-  // const auth = useAuth();
+  const { setUser } = useAuth();
+  const user = useRouteLoaderData('login');
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
@@ -93,26 +94,16 @@ const LoginPage = () => {
   });
 
   const url = location.state?.from?.pathname + location.state?.from?.search;
-  const from = url || '/home';
-
-  useEffect(() => {
-    axios
-      .get('/api/v1/roles')
-      .then()
-      .catch(error => {
-        console.log(12005, 'error', error);
-      });
-  }, []);
+  const from = url || '/';
 
   const onSubmit = async (data: FormInputs) => {
-    const callback = (response: any) => {
-      // context auth
-      setUser({ ...response.user });
-
+    const callback = (response: TUserAuth) => {
+      setUser({ ...response });
+      setLoading(false);
       navigate(from);
     };
-    await AuthApiService.authApi({ ...data });
-    console.log(data);
+    setLoading(true);
+    await AuthApiService.authApi({ ...data, callback });
   };
 
   const onClickIcon = () => setShowPassword(!isShowPassword);
@@ -126,6 +117,8 @@ const LoginPage = () => {
       </InputAdornment>
     );
   };
+
+  if (user) return <Navigate to={'/'} />;
 
   return (
     <Box
@@ -277,6 +270,7 @@ const LoginPage = () => {
                       </FormControl>
 
                       <LoadingButton
+                        loading={isLoading}
                         fullWidth
                         size='large'
                         type='submit'

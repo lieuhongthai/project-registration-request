@@ -10,6 +10,7 @@ import VerticalLayout from 'src/@core/layouts/VerticalLayout';
 import { initialSettings } from 'src/configs/initialSettings';
 
 import NProgress from 'nprogress';
+import { AuthProvider } from 'src/context/AuthContext';
 
 const VerticalLayoutRoot = () => {
   // ** Hooks
@@ -26,7 +27,11 @@ const VerticalLayoutRoot = () => {
   }, [navigation.state, fetchers]);
   const renderChildren = () => (navigation.state === 'loading' ? <Spinner /> : <Outlet />);
 
-  return <VerticalLayout settings={initialSettings}>{renderChildren()}</VerticalLayout>;
+  return (
+    <AuthProvider>
+      <VerticalLayout settings={initialSettings}>{renderChildren()}</VerticalLayout>
+    </AuthProvider>
+  );
 };
 
 export default VerticalLayoutRoot;

@@ -47,7 +47,8 @@
       }
     ],
     "no-irregular-whitespace": "off",
-    "no-undef": "off"
+    "no-undef": "off",
+    "@typescript-eslint/no-unused-expressions": "off"
     // "@typescript-eslint/naming-convention": [
     //   "warn",
     //   {

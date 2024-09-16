@@ -4,8 +4,14 @@ export const permissionEntity = 'PERMISSION_ENTITY';
 export const groupEntity = 'GROUP_ENTITY';
 export const userGroupEntity = 'USER_GROUP_ENTITY';
 
+export enum RoleEnum {
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+  APPROVER = 'APPROVER',
+}
+
 export const dataSeerRole = [
-  { name: 'user', id: 1 },
-  { name: 'admin', id: 2 },
-  { name: 'moderator', id: 3 },
+  { name: RoleEnum.USER, id: 1 },
+  { name: RoleEnum.ADMIN, id: 2 },
+  { name: RoleEnum.APPROVER, id: 3 },
 ];

@@ -65,7 +65,7 @@ import { AuthModule } from './auth/auth.module';
         const { uri, dialect, logging } = configService.get('database');
         console.log(12005, uri);
 
-        return { uri, dialect, logging, autoLoadModels: true, sync: { force: false } };
+        return { uri, dialect, logging, autoLoadModels: true, sync: { force: false, alter: true } };
       },
     }),
 

@@ -1,4 +1,13 @@
-import { AutoIncrement, BelongsToMany, Column, DataType, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import {
+  AllowNull,
+  AutoIncrement,
+  BelongsToMany,
+  Column,
+  DataType,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript';
 import { Roles } from '../roles/roles.model';
 import { Permissions } from '../permissions/permissions.model';
 
@@ -9,12 +18,7 @@ export class Users extends Model {
   @Column({ type: DataType.INTEGER })
   id: number;
 
-  @Column
-  firstName: string;
-
-  @Column
-  lastName: string;
-
+  @AllowNull
   @Column
   full_name: string;
 

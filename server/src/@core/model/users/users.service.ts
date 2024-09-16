@@ -24,8 +24,6 @@ export class UsersService {
 
     if (created) {
       const id = created.id;
-      created.firstName = `${created.firstName}-${id}`;
-      created.lastName = `${created.lastName}-${id}`;
       await created.save();
     }
 

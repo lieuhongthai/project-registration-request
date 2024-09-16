@@ -16,6 +16,7 @@ import helmet from 'helmet';
 import { TConfigService } from 'src/@core/configs/configuration';
 import { RolesGuard } from './@core/guard/role.guard';
 import { Reflector } from '@nestjs/core';
+import * as cookieParser from 'cookie-parser';
 // import * as csurf from 'csurf';
 
 async function bootstrap() {
@@ -39,6 +40,9 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   app.use(compression());
+
+  // ** Security Middleware
+  app.use(cookieParser());
 
   app.use(
     helmet({

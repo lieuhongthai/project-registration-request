@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import BlankLayout from 'src/@core/layouts/BlankLayout';
 import VerticalLayoutRoot from 'src/layouts/VerticalLayoutRoot';
 import LoginPage from 'src/pages/login';
@@ -49,6 +49,7 @@ import UserCreate from 'src/pages/user-management/create';
 import UserEdit from 'src/pages/user-management/edit';
 import Icons from 'src/pages/ui/icons';
 import TypographyPage from 'src/pages/ui/typography';
+import AuthApiService from 'src/api/auth';
 
 export function Component() {
   return (
@@ -70,7 +71,7 @@ export const routers = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <>aaaaaaaaaaaaaaaaaaaaaaaaaaa</>,
+        element: <Navigate to={'project-registration/'} />,
       },
       {
         path: 'project-registration/',
@@ -295,9 +296,16 @@ export const routers = createBrowserRouter([
     ),
   },
   {
-    id: 'guestGuard',
-    loader() {
-      return { guestGuard: true };
+    id: 'login',
+    async loader() {
+      const user = await AuthApiService.verifyApi({}).then((res: any) => {
+        return res.data;
+      });
+
+      if (user) return { user };
+
+      return { user: null };
+      // return { guestGuard: true };
     },
     path: '/login',
     element: (
