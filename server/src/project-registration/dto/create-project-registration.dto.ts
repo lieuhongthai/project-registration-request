@@ -48,4 +48,8 @@ export class CreateProjectRegistrationDto {
   @IsNumber()
   @ApiProperty()
   status: number;
+
+  @IsNumber()
+  @ApiProperty()
+  isDraft: number;
 }
