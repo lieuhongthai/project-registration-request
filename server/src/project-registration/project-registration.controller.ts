@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { ProjectRegistrationService } from './project-registration.service';
 import { CreateProjectRegistrationDto } from './dto/create-project-registration.dto';
 import { UpdateProjectRegistrationDto } from './dto/update-project-registration.dto';
-import { FilterRequest } from './dto/filter-request.dto';
+import { FilterRequestDto } from './dto/filter-request.dto';
 
 @Controller('project-registration')
 export class ProjectRegistrationController {
@@ -14,7 +14,7 @@ export class ProjectRegistrationController {
   }
 
   @Get()
-  findAll(@Query() query: FilterRequest) {
+  findAll(@Query() query: FilterRequestDto) {
     return this.projectRegistrationService.findAll(query);
   }
 
