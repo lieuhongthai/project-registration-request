@@ -26,6 +26,13 @@ export default () => ({
 
   secretKeyJwt: process.env.SECRET_KEY_JWT || 'SECRET_KEY_JWT',
   expiresInJwt: process.env.EXPIRES_IN_JWT || 'EXPIRES_IN_JWT',
+
+  // ** Ldap
+  ldapOpts: {
+    ldapOpts: { url: process.env.LDAP_URI || 'LDAP://10.70.170.41/' },
+    userDn: process.env.LDAP_BIND_DN || 'DC=geo,DC=net',
+    userPassword: process.env.PASSWORD_EXCEPTION,
+  },
 });
 
 export type TConfigService = {
@@ -39,4 +46,12 @@ export type TConfigService = {
   redisPort: number;
   secretKeyJwt: string;
   expiresInJwt: string;
+
+  ldapOpts: {
+    ldapOpts: {
+      url: string;
+    };
+    userDn: string;
+    userPassword: string;
+  };
 };

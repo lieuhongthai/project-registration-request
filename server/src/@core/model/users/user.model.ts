@@ -15,6 +15,12 @@ export class Users extends Model {
   @Column
   lastName: string;
 
+  @Column
+  full_name: string;
+
+  @Column
+  email: string;
+
   @BelongsToMany(() => Roles, () => Permissions, 'userId', 'roleId')
   roles: Roles[];
   getRoles: () => Promise<Roles[]>;

@@ -40,6 +40,8 @@ import { SlackChannelModule } from './slack-channel/slack-channel.module';
 import { RolesGuard } from 'src/@core/guard/role.guard';
 import { StartUpService } from './startUp.service';
 import { ProjectRegistrationModule } from './project-registration/project-registration.module';
+import { AuthModule } from './auth/auth.module';
+
 @Module({
   imports: [
     // ** NextJs Config
@@ -63,7 +65,7 @@ import { ProjectRegistrationModule } from './project-registration/project-regist
         const { uri, dialect, logging } = configService.get('database');
         console.log(12005, uri);
 
-        return { uri, dialect, logging, autoLoadModels: true };
+        return { uri, dialect, logging, autoLoadModels: true, sync: { force: false } };
       },
     }),
 
@@ -81,6 +83,8 @@ import { ProjectRegistrationModule } from './project-registration/project-regist
     SlackChannelModule,
 
     ProjectRegistrationModule,
+
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [

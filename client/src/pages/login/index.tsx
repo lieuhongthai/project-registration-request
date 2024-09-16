@@ -29,14 +29,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // ** Hooks
 // import { useAuth } from 'src/hooks/useAuth';
 
-// ** Configs
-
-// ** Layout Import
-
-// ** Demo Imports
-
-// import { t } from 'i18next';
-
 // ** Icon Imports
 import Icon from 'src/@core/components/icon';
 
@@ -44,6 +36,9 @@ import Icon from 'src/@core/components/icon';
 import './login.css';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import AuthApiService from 'src/api/auth';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { UserDataType } from 'src/api/auth/type';
 
 const schema = yup.object().shape({
   username: yup.string().required(),
@@ -59,12 +54,33 @@ const defaultValues: FormInputs = {
   password: '',
   username: '',
 };
+type ErrCallbackType = (err: { [key: string]: string }) => void;
+
+type AuthValuesType = {
+  isLoading: boolean;
+  logout: () => void;
+  login: (params: FormInputs, errorCallback?: ErrCallbackType) => void;
+  user: UserDataType | null;
+  setUser: (value: UserDataType | null) => void;
+  setLoading: (isBool: boolean) => void;
+};
+const defaultProvider: AuthValuesType = {
+  user: null,
+  isLoading: true,
+  setUser: () => null,
+  setLoading: () => Boolean,
+  login: () => Promise.resolve(),
+  logout: () => Promise.resolve(),
+};
 const LoginPage = () => {
   // ** State
   const [isShowPassword, setShowPassword] = useState<boolean>(false);
+  const [user, setUser] = useState<UserDataType | null>(defaultProvider.user);
 
   // ** Hooks
   // const auth = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
   const {
     control,
@@ -76,6 +92,9 @@ const LoginPage = () => {
     resolver: yupResolver(schema),
   });
 
+  const url = location.state?.from?.pathname + location.state?.from?.search;
+  const from = url || '/home';
+
   useEffect(() => {
     axios
       .get('/api/v1/roles')
@@ -85,14 +104,14 @@ const LoginPage = () => {
       });
   }, []);
 
-  const onSubmit = (data: FormInputs) => {
-    // const { username, password } = data;
-    // auth.login({ username, password, rememberMe }, () => {
-    //   setError('username', {
-    //     type: 'manual',
-    //     message: 'username or Password is invalid',
-    //   });
-    // });
+  const onSubmit = async (data: FormInputs) => {
+    const callback = (response: any) => {
+      // context auth
+      setUser({ ...response.user });
+
+      navigate(from);
+    };
+    await AuthApiService.authApi({ ...data });
     console.log(data);
   };
 
@@ -203,7 +222,7 @@ const LoginPage = () => {
                         <Controller
                           name='username'
                           control={control}
-                          render={({ field: { name, onChange } }) => (
+                          render={({ field: { name, onChange, value } }) => (
                             <TextField
                               fullWidth
                               name={name}
