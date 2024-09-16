@@ -6,6 +6,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 const AutocompleteSmallSize = () => {
   const top100Films: any[] = [];
+
   return (
     <div>
       <Autocomplete

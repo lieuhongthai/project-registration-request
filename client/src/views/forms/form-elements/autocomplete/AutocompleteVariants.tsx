@@ -7,6 +7,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 const AutocompleteVariants = () => {
   const top100Films: any[] = [];
+
   return (
     <Box className='demo-space-x' sx={{ display: 'flex', flexWrap: 'wrap' }}>
       <Autocomplete
