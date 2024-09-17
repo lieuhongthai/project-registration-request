@@ -48,6 +48,7 @@ import { AuthModule } from './auth/auth.module';
 
 import { FileUploadModule } from './file-upload/file-upload.module';
 import { AttachmentModule } from './attachment/attachment.module';
+import { HistoryModule } from './history/history.module';
 @Module({
   imports: [
     // ** NestJs Config
@@ -98,6 +99,8 @@ import { AttachmentModule } from './attachment/attachment.module';
     FileUploadModule,
 
     AttachmentModule,
+
+    HistoryModule,
   ],
   controllers: [AppController],
   providers: [

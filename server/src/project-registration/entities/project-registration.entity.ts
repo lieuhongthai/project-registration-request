@@ -30,8 +30,8 @@ export class ProjectRegistration extends Model {
   @Column
   demand: string;
 
-  @Column({ field: 'project_name' })
-  projectName: string;
+  @Column({ field: 'name' })
+  name: string;
 
   @Column({ field: 'contact_information' })
   contactInformation: string;

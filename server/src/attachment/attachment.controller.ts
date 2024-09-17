@@ -3,7 +3,7 @@ import { AttachmentService } from './attachment.service';
 import { CreateAttachmentDto } from './dto/create-attachment.dto';
 import { FilterRequestDto } from './dto/filter-request.dto';
 
-@Controller('attachment')
+@Controller('/v1/attachment')
 export class AttachmentController {
   constructor(private readonly attachmentService: AttachmentService) {}
 
