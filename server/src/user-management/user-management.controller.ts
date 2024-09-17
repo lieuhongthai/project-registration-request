@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpCode } from '@nestjs/common';
 import { UserManagementService } from './user-management.service';
 import { CreateUserManagementDto } from './dto/create-user-management.dto';
 import { UpdateUserManagementDto } from './dto/update-user-management.dto';
 import { DeleteUserManagementDto } from './dto/delete-user-managemtent.dto';
 import { GetUserManagementDto } from './dto/get-user-management.dto';
+import { RoleEnum } from 'src/@core/constants';
 
 @Controller('v1/user-management')
 export class UserManagementController {
@@ -33,6 +34,7 @@ export class UserManagementController {
   }
 
   @Patch(':id')
+  @HttpCode(200)
   update(@Param('id') id: string, @Body() updateUserManagementDto: UpdateUserManagementDto) {
     return this.userManagementService.update(+id, updateUserManagementDto);
   }
@@ -41,5 +43,10 @@ export class UserManagementController {
   remove(@Param() param: DeleteUserManagementDto) {
     const { id } = param;
     return this.userManagementService.remove(+id);
+  }
+
+  @Get('roles/name/all')
+  getRoles() {
+    return Object.values(RoleEnum);
   }
 }

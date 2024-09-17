@@ -1,7 +1,6 @@
 import { MaterialReactTable, MRT_Row, useMaterialReactTable } from 'material-react-table';
 import { MRT_Localization_JA } from 'material-react-table/locales/ja';
 import EmptyRowTable from './empty-row';
-import { MouseEvent } from 'react';
 
 interface Props {
   columns: any[];
@@ -16,9 +15,9 @@ const MRTablev2 = ({ columns, data, isLoading, onClick: handleOnclick }: Props) 
     data,
     enableColumnActions: false,
     enableColumnFilters: false,
-    enablePagination: false,
+    enablePagination: true,
     enableSorting: false,
-    enableBottomToolbar: false,
+    // enableBottomToolbar: false,
     enableTopToolbar: false,
     state: {
       isLoading,
@@ -36,6 +35,15 @@ const MRTablev2 = ({ columns, data, isLoading, onClick: handleOnclick }: Props) 
           padding: 0,
         },
       };
+    },
+
+    paginationDisplayMode: 'pages',
+    muiPaginationProps: {
+      rowsPerPageOptions: [5, 10, 20],
+      color: 'primary',
+      shape: 'rounded',
+      showRowsPerPage: false,
+      variant: 'outlined',
     },
   });
 

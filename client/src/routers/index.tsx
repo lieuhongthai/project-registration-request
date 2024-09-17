@@ -102,10 +102,16 @@ export const routers = createBrowserRouter([
 
       {
         path: 'user-management/',
+        id: 'user-management',
+        async loader() {
+          const roles = await UserManagementApiService.getRolesApi();
+
+          return { roles };
+        },
         children: [
           {
             index: true,
-            id: 'user-management',
+            id: 'user-management/list',
             async loader() {
               const users = await UserManagementApiService.getUserListApi({}).then(res => (res.status === 200 ? res.data : []));
 
@@ -115,10 +121,21 @@ export const routers = createBrowserRouter([
           },
           {
             path: 'create',
+
             element: <UserCreate />,
           },
           {
             path: 'edit/:id',
+            id: 'user-management/edit',
+            async loader({ params }) {
+              if (params.id) {
+                const user = await UserManagementApiService.getUserByIdApi(params.id);
+
+                return { user };
+              }
+
+              return { user: null };
+            },
             element: <UserEdit />,
           },
         ],

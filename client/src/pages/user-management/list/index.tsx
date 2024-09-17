@@ -44,7 +44,7 @@ const UserList = () => {
   const [dataSources, setDataSource] = useState<TUserData[]>([]);
 
   // ** Hook
-  const { users } = useRouteLoaderData('user-management') as { users: TUserData[] };
+  const { users } = useRouteLoaderData('user-management/list') as { users: TUserData[] };
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;

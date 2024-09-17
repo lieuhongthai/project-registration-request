@@ -7,7 +7,10 @@ import { Op } from 'sequelize';
 
 @Injectable()
 export class UserManagementService {
-  constructor(@InjectModel(Users) private userModel: typeof Users) {}
+  constructor(
+    @InjectModel(Users) private userModel: typeof Users,
+    @InjectModel(Roles) private roleModel: typeof Roles,
+  ) {}
   create() {
     return 'This action adds a new userManagement';
   }
@@ -25,15 +28,49 @@ export class UserManagementService {
           as: 'roles',
         },
       ],
+
+      order: [[{ model: Roles, as: 'roles' }, 'id', 'ASC']],
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} userManagement`;
+  async findOne(id: number) {
+    if (id) {
+      const user = await this.userModel.findOne({
+        where: { id },
+        include: [
+          {
+            model: Roles,
+            attributes: ['name'],
+            as: 'roles',
+          },
+        ],
+      });
+
+      if (user) {
+        return {
+          id: user.id,
+          fullName: user.fullName,
+          email: user.email,
+          roles: user.roles.map((role) => role.name),
+        };
+      }
+    }
+    return null;
   }
 
-  update(id: number, updateUserManagementDto: UpdateUserManagementDto) {
-    return `This action updates a #${id} userManagement`;
+  async update(id: number, updateUserManagementDto: UpdateUserManagementDto) {
+    const user = await this.userModel.findOne({ where: { id, isDeleted: false } });
+
+    if (user) {
+      const roles = await this.roleModel.findAll({ where: { name: updateUserManagementDto.roles } });
+      user.fullName = updateUserManagementDto.fullName;
+      user.email = updateUserManagementDto.email;
+      await user.setRoles(roles);
+      await user.save();
+      return user;
+    }
+
+    return null;
   }
 
   async remove(id: number) {

@@ -102,6 +102,10 @@
     "FIFTH": "五次面接",
     "SIXTH": "六次面接",
     "IDS_ENTER_MONEY_USD_VND_GREATER_THAN_0": ":min より小さい通貨は入力できません",
-    "IDS_NO_PREVIOUS_INTERVIEW": "事前面接の予定はありません"
+    "IDS_NO_PREVIOUS_INTERVIEW": "事前面接の予定はありません",
+
+    "BAD_REQUEST": "不正なリクエスト",
+    "FORBIDDEN": "禁止されています",
+    "NOT_FOUND": "見つかりません"
   }
 }
