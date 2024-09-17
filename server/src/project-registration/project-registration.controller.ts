@@ -4,7 +4,7 @@ import { CreateProjectRegistrationDto } from './dto/create-project-registration.
 import { UpdateProjectRegistrationDto } from './dto/update-project-registration.dto';
 import { FilterRequestDto } from './dto/filter-request.dto';
 
-@Controller('project-registration')
+@Controller('/v1/project-registration')
 export class ProjectRegistrationController {
   constructor(private readonly projectRegistrationService: ProjectRegistrationService) {}
 

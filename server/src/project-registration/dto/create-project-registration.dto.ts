@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsDefined, IsNotEmpty, IsNumber, IsString, Max, MaxLength } from 'class-validator';
+import { IsDefined, IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
+import { AttachmentRequestDto } from './attachment-request.dto';
 
 export class CreateProjectRegistrationDto {
   @IsNotEmpty()
@@ -8,6 +9,13 @@ export class CreateProjectRegistrationDto {
   @MaxLength(100)
   @ApiProperty()
   department: string;
+
+  @IsNotEmpty()
+  @IsDefined()
+  @IsString()
+  @MaxLength(100)
+  @ApiProperty()
+  projectName: string;
 
   @IsNotEmpty()
   @IsDefined()
@@ -43,13 +51,12 @@ export class CreateProjectRegistrationDto {
   @ApiProperty()
   implementationDate: string;
 
-  @IsNotEmpty()
-  @IsDefined()
-  @IsNumber()
   @ApiProperty()
   status: number;
 
-  @IsNumber()
   @ApiProperty()
   isDraft: number;
+
+  @ApiProperty()
+  attachments: AttachmentRequestDto[];
 }

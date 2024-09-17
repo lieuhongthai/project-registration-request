@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { PaymentTypes } from './types';
 
 /**
@@ -19,10 +20,10 @@ const isToday = (date: Date | string) => {
   );
 };
 
-export const formatDate = (value: Date | string, formatting: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' }) => {
+export const formatDate = (value: Date | string, formatting: 'YYYY/MM/DD' | 'YYYY/MM/DD HH:mm:ss') => {
   if (!value) return value;
 
-  return new Intl.DateTimeFormat('en-US', formatting).format(new Date(value));
+  return dayjs(value).format(formatting);
 };
 
 // ** Returns short month of passed date

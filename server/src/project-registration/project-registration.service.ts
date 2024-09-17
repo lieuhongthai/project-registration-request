@@ -5,14 +5,32 @@ import { UpdateProjectRegistrationDto } from './dto/update-project-registration.
 import { ProjectRegistration } from './entities/project-registration.entity';
 import { FilterRequestDto } from './dto/filter-request.dto';
 import { Op } from 'sequelize';
+import { AttachmentService } from 'src/attachment/attachment.service';
+import { CreateAttachmentDto } from 'src/attachment/dto/create-attachment.dto';
 
 @Injectable()
 export class ProjectRegistrationService {
-  @InjectModel(ProjectRegistration)
-  private projectModel: typeof ProjectRegistration;
+  constructor(
+    private readonly attachmentService: AttachmentService,
+    @InjectModel(ProjectRegistration)
+    private projectModel: typeof ProjectRegistration,
+  ) {}
 
   async create(createProjectRegistrationDto: CreateProjectRegistrationDto): Promise<ProjectRegistration> {
-    return await ProjectRegistration.create({ ...createProjectRegistrationDto });
+    const requestCreated = await ProjectRegistration.create({ ...createProjectRegistrationDto });
+    this.attachmentService.createManyAttachment(
+      createProjectRegistrationDto.attachments.map((attachment) => {
+        return {
+          fileName: attachment.filename,
+          filePath: attachment.filename,
+          fileType: attachment.filename,
+          fileIcon: attachment.filename,
+          fileUrl: attachment.filename,
+          projectRegistrationId: requestCreated.id,
+        };
+      }),
+    );
+    return requestCreated;
   }
 
   async findAll(filter: FilterRequestDto): Promise<ProjectRegistration[]> {
