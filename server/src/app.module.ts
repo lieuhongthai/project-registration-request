@@ -31,21 +31,25 @@ import { APP_GUARD } from '@nestjs/core';
 
 // ** Database
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UsersModule } from 'src/@core/model/users/users.module';
-import { RolesModule } from 'src/@core/model/roles/roles.module';
 import { PermissionsModule } from 'src/@core/model/permissions/permissions.module';
+import { RolesModule } from 'src/@core/model/roles/roles.module';
+import { UsersModule } from 'src/@core/model/users/users.module';
 
 // ** Modules
-import { SlackChannelModule } from './slack-channel/slack-channel.module';
 import { RolesGuard } from 'src/@core/guard/role.guard';
-import { StartUpService } from './startUp.service';
+import { ApproveProjectsModule } from './approve-projects/approve-projects.module';
+import { OracleDataModule } from './oracle-data/oracle-data.module';
 import { ProjectRegistrationModule } from './project-registration/project-registration.module';
+import { SlackChannelModule } from './slack-channel/slack-channel.module';
+import { StartUpService } from './startUp.service';
+import { CacheModule } from '@nestjs/cache-manager';
+
 import { AuthModule } from './auth/auth.module';
 
 import { FileUploadModule } from './file-upload/file-upload.module';
 @Module({
   imports: [
-    // ** NextJs Config
+    // ** NestJs Config
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
@@ -59,16 +63,16 @@ import { FileUploadModule } from './file-upload/file-upload.module';
 
     // ** Database
     SequelizeModule.forRootAsync({
-      imports: [ConfigModule],
       inject: [ConfigService],
-
       useFactory: (configService: ConfigService) => {
         const { uri, dialect, logging } = configService.get('database');
-        console.log(12005, uri);
 
         return { uri, dialect, logging, autoLoadModels: true, sync: { force: false, alter: true } };
       },
     }),
+
+    // ** Caching
+    CacheModule.register({ isGlobal: true }),
 
     // ** Log4js
     Log4jsModule.forRoot({ config: LOG4JS_DEFAULT_CONFIG }),
@@ -84,6 +88,10 @@ import { FileUploadModule } from './file-upload/file-upload.module';
     SlackChannelModule,
 
     ProjectRegistrationModule,
+
+    ApproveProjectsModule,
+
+    OracleDataModule,
 
     AuthModule,
     FileUploadModule,

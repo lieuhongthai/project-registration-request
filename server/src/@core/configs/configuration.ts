@@ -20,6 +20,17 @@ export default () => ({
     logging: process.env.DB_LOGGING !== 'false',
   },
 
+  // ** OracleDB
+  oracledb: {
+    user: process.env.ORACLE_USER,
+    password: process.env.ORACLE_PASSWORD,
+    connectionString: process.env.ORACLE_CONNECTION_STRING,
+  },
+
+  cache: {
+    oracleDepartmentsLifetime: parseInt(process.env.CACHE_ORACLE_DEPARTMENTS_LIFETIME) || 15552000,
+  },
+
   // ** Redis
   redisHost: process.env.REDIS_HOST,
   redisPort: parseInt(process.env.REDIS_PORT) || 6379,
@@ -41,15 +52,18 @@ export default () => ({
 
 export type TConfigService = {
   projectTitle: string;
-
   port: number;
   nodeEnv: string | 'production' | 'developer';
   slackApi: { token: string };
   database: { uri: string; dialect: string; logging: boolean };
+  oracledb: { user: string; password: string; connectionString: string };
   redisHost: string;
   redisPort: number;
   secretKeyJwt: string;
   expiresInJwt: string;
+  cache: {
+    oracleDepartmentsLifetime: number;
+  };
 
   ldapOpts: {
     ldapOpts: {
