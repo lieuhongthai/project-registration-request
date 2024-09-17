@@ -41,6 +41,7 @@ import { RolesGuard } from 'src/@core/guard/role.guard';
 import { StartUpService } from './startUp.service';
 import { ProjectRegistrationModule } from './project-registration/project-registration.module';
 import { AuthModule } from './auth/auth.module';
+import { UserManagementModule } from './user-management/user-management.module';
 
 import { FileUploadModule } from './file-upload/file-upload.module';
 @Module({
@@ -87,6 +88,8 @@ import { FileUploadModule } from './file-upload/file-upload.module';
 
     AuthModule,
     FileUploadModule,
+
+    UserManagementModule,
   ],
   controllers: [AppController],
   providers: [

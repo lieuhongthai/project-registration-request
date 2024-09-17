@@ -32,25 +32,9 @@ const MRTable = ({ columns, data, isLoading }: Props) => {
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
         },
       }}
-      muiTableHeadCellProps={{
-        align: 'center',
-        sx: {
-          backgroundColor: 'rgba(52, 210, 235, 0.1)',
-
-          borderRight: '1px solid rgba(81, 81, 81, 1)',
-        },
-      }}
       muiTableBodyRowProps={{
         sx: {
           height: '10px',
-        },
-      }}
-      muiTableBodyCellProps={{
-        sx: {
-          p: '2px 16px',
-          borderTop: '1px solid rgba(81, 81, 81, 1)',
-
-          borderRight: '1px solid rgba(81, 81, 81, 1)',
         },
       }}
     />

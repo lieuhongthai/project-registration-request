@@ -50,6 +50,7 @@ import UserEdit from 'src/pages/user-management/edit';
 import Icons from 'src/pages/ui/icons';
 import TypographyPage from 'src/pages/ui/typography';
 import AuthApiService from 'src/api/auth';
+import UserManagementApiService from 'src/api/user-management';
 
 export function Component() {
   return (
@@ -101,9 +102,17 @@ export const routers = createBrowserRouter([
 
       {
         path: 'user-management/',
-        id: 'adminGuard',
         children: [
-          { index: true, element: <UserList /> },
+          {
+            index: true,
+            id: 'user-management',
+            async loader() {
+              const users = await UserManagementApiService.getUserListApi({}).then(res => (res.status === 200 ? res.data : []));
+
+              return { users };
+            },
+            element: <UserList />,
+          },
           {
             path: 'create',
             element: <UserCreate />,
