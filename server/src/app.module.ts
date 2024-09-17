@@ -42,6 +42,7 @@ import { StartUpService } from './startUp.service';
 import { ProjectRegistrationModule } from './project-registration/project-registration.module';
 import { AuthModule } from './auth/auth.module';
 
+import { FileUploadModule } from './file-upload/file-upload.module';
 @Module({
   imports: [
     // ** NextJs Config
@@ -85,6 +86,7 @@ import { AuthModule } from './auth/auth.module';
     ProjectRegistrationModule,
 
     AuthModule,
+    FileUploadModule,
   ],
   controllers: [AppController],
   providers: [
