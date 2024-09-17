@@ -4,6 +4,7 @@ import { CreateProjectRegistrationDto } from './dto/create-project-registration.
 import { UpdateProjectRegistrationDto } from './dto/update-project-registration.dto';
 import { ProjectRegistration } from './entities/project-registration.entity';
 import { FilterRequestDto } from './dto/filter-request.dto';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class ProjectRegistrationService {
@@ -17,8 +18,12 @@ export class ProjectRegistrationService {
   async findAll(filter: FilterRequestDto): Promise<ProjectRegistration[]> {
     return await this.projectModel.findAll({
       where: {
-        department: filter?.department,
-        purpose: filter?.purpose,
+        department: {
+          [Op.like]: `%${filter?.department}%`,
+        },
+        purpose: {
+          [Op.like]: `%${filter?.purpose}%`,
+        },
       },
     });
   }
