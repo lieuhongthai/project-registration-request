@@ -35,7 +35,7 @@ import './login.css';
 import { useTranslation } from 'react-i18next';
 import AuthApiService from 'src/api/auth';
 import { Navigate, useLocation, useNavigate, useRouteLoaderData } from 'react-router-dom';
-import { TUserAuth, UserDataType } from 'src/api/auth/type';
+import { TUserAuth } from 'src/api/auth/type';
 import { useAuth } from 'src/hooks/useAuth';
 
 const schema = yup.object().shape({
@@ -196,7 +196,7 @@ const LoginPage = () => {
                         <Controller
                           name='username'
                           control={control}
-                          render={({ field: { name, onChange, value } }) => (
+                          render={({ field: { name, onChange } }) => (
                             <TextField
                               fullWidth
                               name={name}
@@ -219,7 +219,6 @@ const LoginPage = () => {
                       </FormControl>
 
                       {/* Password */}
-
                       <FormControl fullWidth>
                         <Controller
                           name='password'

@@ -14,6 +14,7 @@ import { TUserAuth } from 'src/types/auth.type';
 
 @Injectable()
 export class AuthService {
+  protected cookieName = '__auth_';
   constructor(
     private configService: ConfigService<TConfigService>,
     private logger: Log4jsLogger,
@@ -21,6 +22,10 @@ export class AuthService {
     @InjectModel(Users) private userModel: typeof Users,
     @InjectModel(Roles) private roleModel: typeof Roles,
   ) {}
+
+  getCookieName() {
+    return this.cookieName;
+  }
 
   async login(email: string, password: string, fullName: string): Promise<TUserAuth> {
     const { ldapOpts, userDn } = this.configService.get('ldapOpts');
@@ -50,7 +55,8 @@ export class AuthService {
 
       return {
         id: user.id,
-        email: user.email,
+        email: email,
+        fullName: fullName,
         roles: [RoleEnum.USER],
       };
     }
@@ -59,12 +65,13 @@ export class AuthService {
 
     return {
       id: user.id,
+      fullName: user.fullName,
       email: user.email,
       roles: roles,
     };
   }
 
-  async verifyToken(token: string) {
+  verifyToken(token: string): TUserAuth {
     try {
       const secretKey = this.configService.get('secretKeyJwt');
 

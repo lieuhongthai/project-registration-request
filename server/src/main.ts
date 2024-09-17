@@ -17,6 +17,7 @@ import { TConfigService } from 'src/@core/configs/configuration';
 import { RolesGuard } from './@core/guard/role.guard';
 import { Reflector } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
+import { AuthService } from './auth/auth.service';
 // import * as csurf from 'csurf';
 
 async function bootstrap() {
@@ -68,7 +69,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter(app.get(Log4jsLogger), app.get(ConfigService)));
 
-  app.useGlobalGuards(new RolesGuard(app.get(Reflector)));
+  app.useGlobalGuards(new RolesGuard(app.get(Reflector), app.get(AuthService)));
 
   await app.listen(port);
 

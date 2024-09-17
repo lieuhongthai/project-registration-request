@@ -7,8 +7,12 @@ import { Roles } from 'src/@core/model/roles/roles.model';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Users, Roles]), JwtModule.register({ signOptions: { expiresIn: '8h' } })],
+  imports: [
+    SequelizeModule.forFeature([Users, Roles]),
+    JwtModule.register({ signOptions: { expiresIn: '8h' }, global: true }),
+  ],
   controllers: [AuthController],
   providers: [AuthService],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

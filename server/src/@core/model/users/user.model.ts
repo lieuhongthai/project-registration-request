@@ -19,8 +19,8 @@ export class Users extends Model {
   id: number;
 
   @AllowNull
-  @Column
-  full_name: string;
+  @Column({ field: 'full_name' })
+  fullName: string;
 
   @Column
   email: string;
