@@ -47,6 +47,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { AuthModule } from './auth/auth.module';
 
 import { FileUploadModule } from './file-upload/file-upload.module';
+import { AttachmentModule } from './attachment/attachment.module';
 @Module({
   imports: [
     // ** NestJs Config
@@ -95,6 +96,8 @@ import { FileUploadModule } from './file-upload/file-upload.module';
 
     AuthModule,
     FileUploadModule,
+
+    AttachmentModule,
   ],
   controllers: [AppController],
   providers: [
