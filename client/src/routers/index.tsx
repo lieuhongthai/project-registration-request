@@ -43,7 +43,7 @@ import MaterialReactTables from 'src/pages/tables/material-react-table';
 import ProjectRegistrationList from 'src/pages/project-registration/list';
 import ProjectRegistrationCreate from 'src/pages/project-registration/create';
 import ApproveProjectList from 'src/pages/approve-project/list';
-import ApproveProjectUpdate from 'src/pages/approve-project/update';
+import ApproveProjectUpdateStatus from 'src/pages/approve-project/update-status';
 import UserList from 'src/pages/user-management/list';
 import UserCreate from 'src/pages/user-management/create';
 import UserEdit from 'src/pages/user-management/edit';
@@ -93,8 +93,8 @@ export const routers = createBrowserRouter([
         children: [
           { index: true, element: <ApproveProjectList /> },
           {
-            path: 'status-update/:id',
-            element: <ApproveProjectUpdate />,
+            path: 'update-status/:id',
+            element: <ApproveProjectUpdateStatus />,
           },
         ],
       },
