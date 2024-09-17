@@ -1,5 +1,5 @@
-import { Controller, Post, UseInterceptors, UploadedFile, Get, Param, Res } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { Controller, Post, UseInterceptors, Get, Param, Res, UploadedFiles } from '@nestjs/common';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { Response } from 'express';
 import { createReadStream } from 'fs';
@@ -8,11 +8,26 @@ import { extname, join } from 'path';
 
 @Controller('file-upload')
 export class FileUploadController {
-  @Post('file')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        files: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'binary',
+          },
+        },
+      },
+    },
+  })
+  @ApiConsumes('multipart/form-data')
+  @Post('files')
   @UseInterceptors(
-    FileInterceptor('file', {
+    FilesInterceptor('files', 10, {
       storage: diskStorage({
-        destination: `./uploads`,
+        destination: './uploads',
         filename: (_req, file, callback) => {
           const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
           const ext = extname(file.originalname);
@@ -21,24 +36,11 @@ export class FileUploadController {
       }),
     }),
   )
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        file: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
-  @ApiConsumes('multipart/form-data')
-  uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log(file);
-    return {
-      message: 'File uploaded successfully!',
+  uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
+    return files.map((file) => ({
+      originalname: file.originalname,
       filename: file.filename,
-    };
+    }));
   }
 
   @Get('file/:filename')
