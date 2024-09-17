@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export type TUserData = {
+  id: number;
   fullName: string;
   email: string;
   roles: string[];
@@ -21,7 +22,7 @@ const getUserListApi = async ({ fullName, callback }: TUserListApi) => {
 };
 
 const deleteUserApi = async ({ id }: { id: number }) => {
-  return await axios.delete('/api/v1/user-management', { params: id });
+  return await axios.delete(`/api/v1/user-management/${id}`);
 };
 
 const UserManagementApiService = { getUserListApi, deleteUserApi };

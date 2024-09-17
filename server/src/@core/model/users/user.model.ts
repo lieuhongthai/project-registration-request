@@ -25,6 +25,9 @@ export class Users extends Model {
   @Column
   email: string;
 
+  @Column({ field: 'is_deleted' })
+  isDeleted: boolean;
+
   @BelongsToMany(() => Roles, () => Permissions, 'userId', 'roleId')
   roles: Roles[];
   getRoles: () => Promise<Roles[]>;

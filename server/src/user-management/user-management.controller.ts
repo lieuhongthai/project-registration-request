@@ -1,26 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { UserManagementService } from './user-management.service';
 import { CreateUserManagementDto } from './dto/create-user-management.dto';
 import { UpdateUserManagementDto } from './dto/update-user-management.dto';
-import { UsersService } from 'src/@core/model/users/users.service';
-import { Users } from 'src/@core/model/users/user.model';
+import { DeleteUserManagementDto } from './dto/delete-user-managemtent.dto';
+import { GetUserManagementDto } from './dto/get-user-management.dto';
 
 @Controller('v1/user-management')
 export class UserManagementController {
-  constructor(
-    private readonly userManagementService: UserManagementService,
-
-    private readonly userService: UsersService,
-  ) {}
+  constructor(private readonly userManagementService: UserManagementService) {}
 
   @Post()
   create(@Body() createUserManagementDto: CreateUserManagementDto) {
-    return this.userManagementService.create(createUserManagementDto);
+    return this.userManagementService.create();
   }
 
   @Get()
-  async findAll() {
-    const users = await this.userService.getUserAndRoles();
+  async findAll(@Query() query: GetUserManagementDto) {
+    const { fullName } = query;
+    const users = await this.userManagementService.getUserAndRolesByName(fullName);
 
     return users.map((user) => ({
       id: user.id,
@@ -41,7 +38,8 @@ export class UserManagementController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param() param: DeleteUserManagementDto) {
+    const { id } = param;
     return this.userManagementService.remove(+id);
   }
 }

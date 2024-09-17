@@ -9,16 +9,4 @@ export class UsersService extends ModelService<Users> {
   constructor(@InjectModel(Users) private userModel: typeof Users) {
     super(userModel);
   }
-
-  async getUserAndRoles(): Promise<Users[]> {
-    return await this.userModel.findAll({
-      include: [
-        {
-          model: Roles,
-          attributes: ['name'],
-          as: 'roles',
-        },
-      ],
-    });
-  }
 }
