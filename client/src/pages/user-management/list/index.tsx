@@ -10,22 +10,15 @@ import MRTable from 'src/@core/components/table/tabelv2';
 import { useEffect, useMemo, useState } from 'react';
 import { MRT_ColumnDef, MRT_Row } from 'material-react-table';
 import { useLocation, useNavigate, useRouteLoaderData, useSearchParams } from 'react-router-dom';
-import UserManagementApiService from 'src/api/user-management';
+import UserManagementApiService, { TUserData } from 'src/api/user-management';
 import IconButton from '@mui/material/IconButton';
 import Icon from 'src/@core/components/icon';
 
 // ** Third Party Imports
 import * as yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Chip from '@mui/material/Chip';
-
-type TUserData = {
-  id: number;
-  fullName: string;
-  email: string;
-  roles: string[];
-};
 
 const schema = yup.object().shape({
   fullName: yup.string().max(100).nullable(),
@@ -46,9 +39,6 @@ const UserList = () => {
   // ** Hook
   const { users } = useRouteLoaderData('user-management/list') as { users: TUserData[] };
   const navigate = useNavigate();
-  const location = useLocation();
-  const state = location.state;
-  const [params, setSearchParam] = useSearchParams();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const {
@@ -76,8 +66,6 @@ const UserList = () => {
 
   const onSubmit = ({ fullName }: FormInputs) => {
     setLoading(true);
-    // navigate('.', { state: { fullName }, replace: true });
-    // if (fullName) setSearchParam({ fullName });
     handleSerch(fullName || '');
   };
 

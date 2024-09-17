@@ -1,8 +1,8 @@
-import { Card, CardContent } from '@mui/material';
 import React from 'react';
-import MRTable from 'src/@core/components/table';
-import { IData } from '..';
+import MRTable from 'src/@core/components/table/tabelv2';
 import { MRT_ColumnDef } from 'material-react-table';
+import { TProjectRegistration } from 'src/api/project-registration';
+import { format } from 'date-fns';
 
 const columns: MRT_ColumnDef<any>[] = [
   {
@@ -60,6 +60,9 @@ const columns: MRT_ColumnDef<any>[] = [
     muiTableBodyCellProps: {
       align: 'left',
     },
+    Cell({ renderedCellValue }) {
+      return format(new Date(renderedCellValue as string), 'yyyy-M-d HH:mm');
+    },
   },
   {
     accessorKey: 'updatedAt',
@@ -69,6 +72,10 @@ const columns: MRT_ColumnDef<any>[] = [
     },
     muiTableBodyCellProps: {
       align: 'left',
+    },
+
+    Cell({ renderedCellValue }) {
+      return format(new Date(renderedCellValue as string), 'yyyy-M-d HH:mm');
     },
   },
   {
@@ -84,18 +91,12 @@ const columns: MRT_ColumnDef<any>[] = [
 ];
 
 interface IProps {
-  data: IData[];
+  data: TProjectRegistration[];
   isLoading: boolean;
 }
 
 const TablePartition = ({ data, isLoading }: IProps) => {
-  return (
-    <Card>
-      <CardContent>
-        <MRTable columns={columns} data={data} isLoading={isLoading} />
-      </CardContent>
-    </Card>
-  );
+  return <MRTable columns={columns} data={data} isLoading={isLoading} />;
 };
 
 export default TablePartition;

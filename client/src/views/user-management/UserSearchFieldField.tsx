@@ -14,7 +14,7 @@ interface IProps {
 }
 const UserSearchFieldField: FC<IProps> = ({ control, errors, isLoading }) => {
   return (
-    <Grid container rowSpacing={3}>
+    <Grid container spacing={3}>
       <Grid size={12}>
         <FieldGroup label='ユーザー' direction='row'>
           <FormControl fullWidth>

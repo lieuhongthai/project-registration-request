@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Patch, Query } from '@nestjs/common';
 import { ParseIdPipe } from 'src/@core/pipes/parse-id.pipe';
 import { PlainToClassPipe } from 'src/@core/pipes/plain-to-class.pipe';
 import { ApproveProjectsService } from './approve-projects.service';
@@ -9,6 +9,7 @@ import { UpdateApproveProjectDto } from './dto/update-approve-project.dto';
 export class ApproveProjectsController {
   constructor(private readonly approveProjectsService: ApproveProjectsService) {}
 
+  @HttpCode(200)
   @Get()
   async findAll(@Query(PlainToClassPipe) query: ApproveProjectFiltersDto) {
     return await this.approveProjectsService.findAll(query);

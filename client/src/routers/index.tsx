@@ -51,6 +51,7 @@ import Icons from 'src/pages/ui/icons';
 import TypographyPage from 'src/pages/ui/typography';
 import AuthApiService from 'src/api/auth';
 import UserManagementApiService from 'src/api/user-management';
+import ProjectRegistrationService from 'src/api/project-registration';
 
 export function Component() {
   return (
@@ -81,7 +82,18 @@ export const routers = createBrowserRouter([
           return true;
         },
         children: [
-          { index: true, element: <ProjectRegistrationList /> },
+          {
+            index: true,
+            id: 'project-registration/list',
+            async loader() {
+              const requests = await ProjectRegistrationService.getRequestApi({ department: '', purpose: '' })
+                .then(res => (res.status === 200 ? res.data : []))
+                .catch(() => []);
+
+              return { requests };
+            },
+            element: <ProjectRegistrationList />,
+          },
           {
             path: 'create',
             element: <ProjectRegistrationCreate />,
