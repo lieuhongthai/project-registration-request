@@ -1,10 +1,9 @@
 // ** React Imports
-import { ChangeEvent, ChangeEventHandler, useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // ** MUI Components
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import FormGroup from '@mui/material/FormGroup';
 import Typography from '@mui/material/Typography';
 import Grow from '@mui/material/Grow';
 import Stack from '@mui/material/Stack';
@@ -14,7 +13,6 @@ import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useTheme } from '@mui/material/styles';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 
@@ -54,24 +52,7 @@ const defaultValues: FormInputs = {
   password: '',
   username: '',
 };
-type ErrCallbackType = (err: { [key: string]: string }) => void;
 
-type AuthValuesType = {
-  isLoading: boolean;
-  logout: () => void;
-  login: (params: FormInputs, errorCallback?: ErrCallbackType) => void;
-  user: UserDataType | null;
-  setUser: (value: UserDataType | null) => void;
-  setLoading: (isBool: boolean) => void;
-};
-const defaultProvider: AuthValuesType = {
-  user: null,
-  isLoading: true,
-  setUser: () => null,
-  setLoading: () => Boolean,
-  login: () => Promise.resolve(),
-  logout: () => Promise.resolve(),
-};
 const LoginPage = () => {
   // ** State
   const [isShowPassword, setShowPassword] = useState<boolean>(false);
@@ -79,7 +60,7 @@ const LoginPage = () => {
 
   // ** Hooks
   const { setUser } = useAuth();
-  const user = useRouteLoaderData('login');
+  const { user } = useRouteLoaderData('login') as { user: TUserAuth | null };
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();

@@ -299,13 +299,12 @@ export const routers = createBrowserRouter([
     id: 'login',
     async loader() {
       const user = await AuthApiService.verifyApi({}).then((res: any) => {
-        return res.data;
+        if (res && res.status === 200) return res?.data;
+
+        return null;
       });
 
-      if (user) return { user };
-
-      return { user: null };
-      // return { guestGuard: true };
+      return { user };
     },
     path: '/login',
     element: (
