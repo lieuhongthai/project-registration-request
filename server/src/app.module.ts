@@ -45,6 +45,7 @@ import { StartUpService } from './startUp.service';
 import { CacheModule } from '@nestjs/cache-manager';
 
 import { AuthModule } from './auth/auth.module';
+import { UserManagementModule } from './user-management/user-management.module';
 
 import { FileUploadModule } from './file-upload/file-upload.module';
 import { AttachmentModule } from './attachment/attachment.module';
@@ -96,7 +97,10 @@ import { HistoryModule } from './history/history.module';
     OracleDataModule,
 
     AuthModule,
+
     FileUploadModule,
+
+    UserManagementModule,
 
     AttachmentModule,
 

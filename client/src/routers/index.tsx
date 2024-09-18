@@ -43,13 +43,15 @@ import MaterialReactTables from 'src/pages/tables/material-react-table';
 import ProjectRegistrationList from 'src/pages/project-registration/list';
 import ProjectRegistrationCreate from 'src/pages/project-registration/create';
 import ApproveProjectList from 'src/pages/approve-project/list';
-import ApproveProjectUpdate from 'src/pages/approve-project/update';
+import ApproveProjectUpdateStatus from 'src/pages/approve-project/update-status';
 import UserList from 'src/pages/user-management/list';
 import UserCreate from 'src/pages/user-management/create';
 import UserEdit from 'src/pages/user-management/edit';
 import Icons from 'src/pages/ui/icons';
 import TypographyPage from 'src/pages/ui/typography';
 import AuthApiService from 'src/api/auth';
+import UserManagementApiService from 'src/api/user-management';
+import ProjectRegistrationService from 'src/api/project-registration';
 
 export function Component() {
   return (
@@ -80,7 +82,18 @@ export const routers = createBrowserRouter([
           return true;
         },
         children: [
-          { index: true, element: <ProjectRegistrationList /> },
+          {
+            index: true,
+            id: 'project-registration/list',
+            async loader() {
+              const requests = await ProjectRegistrationService.getRequestApi({ department: '', purpose: '' })
+                .then(res => (res.status === 200 ? res.data : []))
+                .catch(() => []);
+
+              return { requests };
+            },
+            element: <ProjectRegistrationList />,
+          },
           {
             path: 'create',
             element: <ProjectRegistrationCreate />,
@@ -93,23 +106,48 @@ export const routers = createBrowserRouter([
         children: [
           { index: true, element: <ApproveProjectList /> },
           {
-            path: 'status-update/:id',
-            element: <ApproveProjectUpdate />,
+            path: 'update-status/:id',
+            element: <ApproveProjectUpdateStatus />,
           },
         ],
       },
 
       {
         path: 'user-management/',
-        id: 'adminGuard',
+        id: 'user-management',
+        async loader() {
+          const roles = await UserManagementApiService.getRolesApi();
+
+          return { roles };
+        },
         children: [
-          { index: true, element: <UserList /> },
+          {
+            index: true,
+            id: 'user-management/list',
+            async loader() {
+              const users = await UserManagementApiService.getUserListApi({}).then(res => (res.status === 200 ? res.data : []));
+
+              return { users };
+            },
+            element: <UserList />,
+          },
           {
             path: 'create',
+
             element: <UserCreate />,
           },
           {
             path: 'edit/:id',
+            id: 'user-management/edit',
+            async loader({ params }) {
+              if (params.id) {
+                const user = await UserManagementApiService.getUserByIdApi(params.id);
+
+                return { user };
+              }
+
+              return { user: null };
+            },
             element: <UserEdit />,
           },
         ],

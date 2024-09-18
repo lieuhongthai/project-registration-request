@@ -17,19 +17,6 @@ export class UsersService {
     });
   }
 
-  async createUser() {
-    const user = { firstName: 'firstName', lastName: 'lastName' };
-
-    const created = await this.userModel.create(user);
-
-    if (created) {
-      const id = created.id;
-      await created.save();
-    }
-
-    return created;
-  }
-
   findOne(id: string): Promise<Users> {
     return this.userModel.findOne({
       where: {

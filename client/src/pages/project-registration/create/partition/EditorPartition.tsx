@@ -8,7 +8,7 @@ import { Palette } from '@mui/material/styles/createPalette';
 
 interface IProps {
   value: string;
-  label: string;
+  label?: string;
   placeholder: string;
   onChange: (...event: any[]) => void;
   error?: boolean;
@@ -35,16 +35,19 @@ const EditorPartition = ({ label, placeholder, value, onChange, error, loading }
 
   return (
     <Box>
-      <Typography
-        onClick={() => {
-          editRef.current?.focusEditor();
-        }}
-        sx={{
-          color: error ? 'red' : '#636578',
-        }}
-      >
-        {label}
-      </Typography>
+      {label && (
+        <Typography
+          onClick={() => {
+            editRef.current?.focusEditor();
+          }}
+          sx={{
+            color: error ? 'red' : '#636578',
+          }}
+        >
+          {label}
+        </Typography>
+      )}
+
       <Card
         sx={{
           border: borderStyle,

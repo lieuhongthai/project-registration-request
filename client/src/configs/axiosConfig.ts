@@ -24,16 +24,16 @@ axios.interceptors.response.use(
       console.error('Error response - axios.interceptors.response:', error.response);
       switch (error.response.status) {
         case 400:
-          toast.error(t('Bad Request'));
+          toast.error(t('BAD_REQUEST'));
           break;
         case 401:
           toast.error(t('IDM_AUTHENTICATED_ERROR')); // ** Unauthorized
           break;
         case 403:
-          toast.error(t('Forbidden'));
+          toast.error(t('FORBIDDEN'));
           break;
         case 404:
-          toast.error(t('Not Found'));
+          toast.error(t('NOT_FOUND'));
           break;
         case 500:
           toast.error(t('IDM_INTERNAL_SERVER_ERROR'));

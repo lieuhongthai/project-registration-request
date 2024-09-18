@@ -4,6 +4,7 @@ import {
   BelongsToMany,
   Column,
   DataType,
+  Default,
   Model,
   PrimaryKey,
   Table,
@@ -24,6 +25,10 @@ export class Users extends Model {
 
   @Column
   email: string;
+
+  @Default(false)
+  @Column({ field: 'is_deleted' })
+  isDeleted: boolean;
 
   @BelongsToMany(() => Roles, () => Permissions, 'userId', 'roleId')
   roles: Roles[];

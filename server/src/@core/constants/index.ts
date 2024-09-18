@@ -5,13 +5,13 @@ export const groupEntity = 'GROUP_ENTITY';
 export const userGroupEntity = 'USER_GROUP_ENTITY';
 
 export enum RoleEnum {
-  USER = 'USER',
   ADMIN = 'ADMIN',
   APPROVER = 'APPROVER',
+  USER = 'USER',
 }
 
 export const dataSeerRole = [
-  { name: RoleEnum.USER, id: 1 },
-  { name: RoleEnum.ADMIN, id: 2 },
-  { name: RoleEnum.APPROVER, id: 3 },
+  { name: RoleEnum.ADMIN, id: 1 },
+  { name: RoleEnum.APPROVER, id: 2 },
+  { name: RoleEnum.USER, id: 3 },
 ];

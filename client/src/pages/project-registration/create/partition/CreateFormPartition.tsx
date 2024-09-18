@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card, CardContent, FormControl, FormHelperText, styled, TextField } from '@mui/material';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { Button, Card, CardContent, FormControl, FormHelperText, FormLabel, styled, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Controller, useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -73,6 +73,23 @@ const validationSchema = yup.object({
   implementationDate: yup.date().required('This field is required'),
 });
 
+const Item = ({ children, label, subTitle }: { children: ReactNode; label: string; subTitle?: string }) => (
+  <Grid container size={12} spacing={1}>
+    <Grid size={12}>
+      <Typography variant='subtitle1' sx={{ lineHeight: 1, marginBottom: 0, fontWeight: 550 }}>
+        {label}
+      </Typography>
+
+      {subTitle && (
+        <Typography variant='caption' pl={3} sx={{ fontSize: '0.65rem', lineHeight: 1, marginTop: 0 }}>
+          {subTitle}
+        </Typography>
+      )}
+    </Grid>
+    <Grid size={12}>{children}</Grid>
+  </Grid>
+);
+
 const CreateFormPartition = () => {
   const {
     control,
@@ -91,7 +108,7 @@ const CreateFormPartition = () => {
       if (files) {
         file = await handleUploadFiles(files);
       }
-      await axios.post('/api/project-registration', { ...data, attachments: file });
+      await axios.post('/api/v1/project-registration', { ...data, attachments: file });
       setLoading(false);
       toast.success('Create request successfully!');
       navigate('/project-registration');
@@ -125,202 +142,181 @@ const CreateFormPartition = () => {
   };
 
   return (
-    <Card>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={5}>
-            <Grid size={12}>
-              <FormControl fullWidth>
-                <Controller
-                  name='department'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <TextField
-                      value={value}
-                      label='申請部門'
-                      onChange={onChange}
-                      placeholder='申請部門'
-                      error={Boolean(errors.department)}
-                      aria-describedby='validation-basic-first-name'
-                      helperText={errors.department?.message}
-                      disabled={isLoading}
-                    />
-                  )}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid container spacing={5}>
+        <Item label='申請部門' subTitle='部署名を記載記載してください。'>
+          <FormControl fullWidth>
+            <Controller
+              name='department'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <TextField
+                  value={value}
+                  onChange={onChange}
+                  error={Boolean(errors.department)}
+                  aria-describedby='validation-basic-first-name'
+                  helperText={errors.department?.message}
+                  disabled={isLoading}
                 />
-              </FormControl>
-            </Grid>
-            <Grid size={12}>
-              <FormControl fullWidth>
-                <Controller
-                  name='projectName'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <TextField
-                      value={value}
-                      label='プロジェクト名'
-                      onChange={onChange}
-                      placeholder='プロジェクト名'
-                      error={Boolean(errors.projectName)}
-                      aria-describedby='validation-basic-first-name'
-                      helperText={errors.projectName?.message}
-                      disabled={isLoading}
-                    />
-                  )}
-                />
-              </FormControl>
-            </Grid>
-            <Grid size={12}>
-              <FormControl fullWidth>
-                <Controller
-                  name='purpose'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <EditorPartition
-                      label='開発背景/目的'
-                      placeholder='開発背景/目的'
-                      value={value}
-                      onChange={onChange}
-                      error={!!errors.purpose}
-                      loading={isLoading}
-                    />
-                  )}
-                />
-                {errors.purpose && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-first-name'>
-                    {errors.purpose.message}
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
+              )}
+            />
+          </FormControl>
+        </Item>
 
-            <Grid size={12}>
-              <FormControl fullWidth>
-                <Controller
-                  name='scopeOfUse'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <EditorPartition
-                      label='利用範囲'
-                      placeholder='利用範囲'
+        <Item label='プロジェクト名'>
+          <FormControl fullWidth>
+            <Controller
+              name='projectName'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <TextField
+                  value={value}
+                  onChange={onChange}
+                  placeholder='プロジェクト名'
+                  error={Boolean(errors.projectName)}
+                  aria-describedby='validation-basic-first-name'
+                  helperText={errors.projectName?.message}
+                  disabled={isLoading}
+                />
+              )}
+            />
+          </FormControl>
+        </Item>
+        <Item label='開発背景/目的' subTitle='開発依頼に至った背景と、開発の目的・効果を記載してください。'>
+          <FormControl fullWidth>
+            <Controller
+              name='purpose'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <EditorPartition placeholder='開発背景/目的' value={value} onChange={onChange} error={!!errors.purpose} loading={isLoading} />
+              )}
+            />
+            {errors.purpose && (
+              <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-first-name'>
+                {errors.purpose.message}
+              </FormHelperText>
+            )}
+          </FormControl>
+        </Item>
+
+        <Item label='利用範囲' subTitle='システムの利用部署・利用者を記載してください。'>
+          <FormControl fullWidth>
+            <Controller
+              name='scopeOfUse'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <EditorPartition placeholder='利用範囲' value={value} onChange={onChange} error={!!errors.scopeOfUse} loading={isLoading} />
+              )}
+            />
+            {errors.scopeOfUse && (
+              <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-first-name'>
+                {errors.scopeOfUse.message}
+              </FormHelperText>
+            )}
+          </FormControl>
+        </Item>
+        <Item label='要求' subTitle='開発システムが何ができるか、どんな機能を想定しているかをわかる範囲で記載してください。'>
+          <FormControl fullWidth>
+            <Controller
+              name='demand'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <EditorPartition placeholder='要求' value={value} onChange={onChange} error={!!errors.demand} loading={isLoading} />
+              )}
+            />
+            {errors.demand && (
+              <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-first-name'>
+                {errors.demand.message}
+              </FormHelperText>
+            )}
+          </FormControl>
+        </Item>
+        <Item label='関係者・問合せ先' subTitle='システム開発依頼に関わる関係者と問合せ先の氏名・メールアドレスを記載してください。'>
+          <FormControl fullWidth>
+            <Controller
+              name='contactInformation'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <EditorPartition
+                  label='関係者・問合せ先'
+                  placeholder='関係者・問合せ先'
+                  value={value}
+                  onChange={onChange}
+                  error={!!errors.contactInformation}
+                  loading={isLoading}
+                />
+              )}
+            />
+            {errors.contactInformation && (
+              <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-first-name'>
+                {errors.contactInformation.message}
+              </FormHelperText>
+            )}
+          </FormControl>
+        </Item>
+        <Item label='導入希望日' subTitle='いつシステムを導入したいのかを記載してください。'>
+          <FormControl fullWidth>
+            <Controller
+              name='implementationDate'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <DatePicker
+                  selected={value}
+                  id='basic-input'
+                  onChange={onChange}
+                  placeholderText='Click to select a date'
+                  popperPlacement={'bottom-start'}
+                  customInput={
+                    <TextField
                       value={value}
                       onChange={onChange}
-                      error={!!errors.scopeOfUse}
-                      loading={isLoading}
+                      placeholder='導入希望日'
+                      error={Boolean(errors.implementationDate)}
+                      aria-describedby='validation-basic-first-name'
+                      disabled={isLoading}
+                      fullWidth
                     />
-                  )}
+                  }
                 />
-                {errors.scopeOfUse && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-first-name'>
-                    {errors.scopeOfUse.message}
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            <Grid size={12}>
-              <FormControl fullWidth>
-                <Controller
-                  name='demand'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <EditorPartition label='要求' placeholder='要求' value={value} onChange={onChange} error={!!errors.demand} loading={isLoading} />
-                  )}
-                />
-                {errors.demand && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-first-name'>
-                    {errors.demand.message}
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            <Grid size={12}>
-              <FormControl fullWidth>
-                <Controller
-                  name='contactInformation'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <EditorPartition
-                      label='関係者・問合せ先'
-                      placeholder='関係者・問合せ先'
-                      value={value}
-                      onChange={onChange}
-                      error={!!errors.contactInformation}
-                      loading={isLoading}
-                    />
-                  )}
-                />
-                {errors.contactInformation && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-first-name'>
-                    {errors.contactInformation.message}
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            <Grid size={12}>
-              <FormControl fullWidth>
-                <Controller
-                  name='implementationDate'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange } }) => (
-                    <DatePicker
-                      selected={value}
-                      id='basic-input'
-                      onChange={onChange}
-                      placeholderText='Click to select a date'
-                      popperPlacement={'bottom-start'}
-                      customInput={
-                        <TextField
-                          value={value}
-                          label='導入希望日'
-                          onChange={onChange}
-                          placeholder='導入希望日'
-                          error={Boolean(errors.implementationDate)}
-                          aria-describedby='validation-basic-first-name'
-                          disabled={isLoading}
-                          fullWidth
-                        />
-                      }
-                    />
-                  )}
-                />
-                {errors.implementationDate && (
-                  <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-first-name'>
-                    This field is required
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            <Grid size={1.5}>
-              <Button component='label' role={undefined} variant='contained' tabIndex={-1} startIcon={<CloudUploadIcon />} disabled={isLoading}>
-                Attach
-                <VisuallyHiddenInput type='file' name='files' onChange={event => setFiles(event.target.files)} multiple />
-              </Button>
-            </Grid>
-            <Grid container size={12} sx={{ borderTop: '1px solid gray' }} pt={3}>
-              <Grid size={6} sx={{ display: 'flex', gap: 2 }}>
-                <Button type='submit' variant='contained' startIcon={<SendIcon />} disabled={isLoading}>
-                  Submit
-                </Button>
-                <Button type='button' variant='outlined' startIcon={<DescriptionIcon />} disabled={isLoading}>
-                  Save draft
-                </Button>
-              </Grid>
-              <Grid size={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button type='submit' variant='contained' startIcon={<SellIcon />} disabled={isLoading}>
-                  Guide
-                </Button>
-              </Grid>
-            </Grid>
+              )}
+            />
+            {errors.implementationDate && (
+              <FormHelperText sx={{ color: 'error.main' }} id='validation-basic-first-name'>
+                This field is required
+              </FormHelperText>
+            )}
+          </FormControl>
+        </Item>
+        <Grid size={1.5}>
+          <Button component='label' role={undefined} variant='contained' tabIndex={-1} startIcon={<CloudUploadIcon />} disabled={isLoading}>
+            Attach
+            <VisuallyHiddenInput type='file' name='files' onChange={event => setFiles(event.target.files)} multiple />
+          </Button>
+        </Grid>
+        <Grid container size={12} sx={{ borderTop: '1px solid gray' }} pt={3}>
+          <Grid size={6} sx={{ display: 'flex', gap: 2 }}>
+            <Button type='submit' variant='contained' startIcon={<SendIcon />} disabled={isLoading}>
+              Submit
+            </Button>
+            <Button type='button' variant='outlined' startIcon={<DescriptionIcon />} disabled={isLoading}>
+              Save draft
+            </Button>
           </Grid>
-        </form>
-      </CardContent>
-    </Card>
+          <Grid size={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button type='submit' variant='contained' startIcon={<SellIcon />} disabled={isLoading}>
+              Guide
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </form>
   );
 };
 

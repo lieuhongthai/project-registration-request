@@ -10,11 +10,6 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Post()
-  createUser() {
-    return this.usersService.createUser();
-  }
-
   @Get('/roles')
   getAllRoles() {
     return this.usersService.getAllRoles();

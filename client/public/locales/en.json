@@ -107,6 +107,10 @@
     "FIFTH": "5th",
     "SIXTH": "6th",
     "IDS_ENTER_MONEY_USD_VND_GREATER_THAN_0": "Currency cannot be entered smaller than :min",
-    "IDS_NO_PREVIOUS_INTERVIEW": "No previous interview scheduled"
+    "IDS_NO_PREVIOUS_INTERVIEW": "No previous interview scheduled",
+
+    "BAD_REQUEST": "Bad Request",
+    "FORBIDDEN": "Forbidden",
+    "NOT_FOUND": "Not Found"
   }
 }
