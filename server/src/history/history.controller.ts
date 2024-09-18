@@ -3,7 +3,7 @@ import { HistoryService } from './history.service';
 import { CreateHistoryDto } from './dto/create-history.dto';
 import { FilterRequestDto } from './dto/filter-request.dto';
 
-@Controller('history')
+@Controller('/v1/history')
 export class HistoryController {
   constructor(private readonly historyService: HistoryService) {}
 

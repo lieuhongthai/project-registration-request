@@ -6,7 +6,7 @@ import { createReadStream } from 'fs';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 
-@Controller('file-upload')
+@Controller('/v1/file-upload')
 export class FileUploadController {
   @ApiBody({
     schema: {
